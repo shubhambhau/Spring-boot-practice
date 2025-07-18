@@ -1,11 +1,13 @@
 package in.shubhamjadhav.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +31,7 @@ public class StudentController {
 
 
 
-	@GetMapping("student")
+	@GetMapping("students")
 	public List<Student> getStudents(){
 		return students;
 	}
@@ -51,4 +53,18 @@ public class StudentController {
 	{
 		students.add(student);
 	}
+	
+	
+	@PutMapping("/student/{firstName}")
+	public void updateStudent(@PathVariable("firstName") String firstName, @RequestBody Student student )
+	{
+		for(Student x : students ) {
+			if (x.getFirstName().equals(firstName)) {
+				x.setFirstName(student.getFirstName());
+				x.setLastName(student.getLastName());
+			}
+		}
+	}
+	
+	
 }
